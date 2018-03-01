@@ -1,7 +1,8 @@
 const routes = require('express').Router()
 const models = require('../models')
+const authAdmin     = require('../middlewares/authAdmin')
 
-routes.get('/',(req,res) => {
+routes.get('/', authAdmin, (req,res) => {
     res.send('Ini halaman admin')
 })
 

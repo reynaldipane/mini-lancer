@@ -1,7 +1,8 @@
-const routes = require('express').Router()
+const routes        = require('express').Router()
+const authRecruiter = require('../middlewares/authRecruiter')
 
-routes.get('/',(req,res)=>{
-    res.send('Ini halaman Recruiter')
+routes.get('/', authRecruiter, (req,res) => {
+    res.send('Ini halaman recruiter')
 })
 
 
