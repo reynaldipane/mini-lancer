@@ -23,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     telp: DataTypes.STRING,
+    picture: DataTypes.TEXT,
     status: DataTypes.INTEGER
   }, {});
   Worker.associate = function(models) {

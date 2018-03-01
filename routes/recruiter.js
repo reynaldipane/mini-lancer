@@ -144,4 +144,22 @@ routes.get('/markdone/:idtransaction/worker/:idworker', (req,res) => {
     })
 })
 
+routes.get('/viewworker/:idworker', authRecruiter,(req,res) => {
+    models.Worker.findOne({
+        where : {id : req.params.idworker}
+    })
+    .then((worker) => {
+        res.render('../views/recruiter/view-worker',{worker : worker})
+    })
+    .catch(err => {
+        res.send(err)
+    })
+})
+
+routes.get('/logout',(req,res) => {
+    req.session.destroy(err=>{
+        res.redirect('/')
+    })
+})
+
 module.exports = routes;
