@@ -1,0 +1,25 @@
+<html>
+    <head>
+
+    </head>
+    <body>
+        <h2>Hallo <%= worker.username %>, silahkan pilih jasa yang bisa kamu lakukan !</h2>
+        <form action="" method="POST">
+            <select name="service">
+                <% services.forEach(service => { %>
+                    <option value="<%=service.id%>"><%= service.name %></option>
+                <%})%>
+            </select>
+            <input type="submit" value="Assign">
+        </form>
+
+        <table border="1px" style="text-align:center">
+            <th>Jasa yang kamu tawarkan</th>
+            <% servicesOwned.forEach(service => { %>
+                <tr>
+                    <td><%= service.name    %></td>
+                </tr>
+            <% })%>
+        </table>
+    </body>
+</html>

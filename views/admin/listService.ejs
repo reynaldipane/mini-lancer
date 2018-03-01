@@ -1,0 +1,44 @@
+<html>
+<body>
+    <main>
+        <div class="container">
+            <h2>List Services</h2>
+            <table border='1'>
+                <tr>
+                  <th><b>No.</b></th>
+                  <th><b>Service Name</b></th>
+                  <th><b>Description</b></th>
+                  <th colspan=2><center><b>Action</b></center></th>
+                </tr>
+                    <% let no=1 %>
+                    <% services.forEach(dataService => { %>
+                <tr>
+                  <td><%= no++ %></td>
+                  <td><%= dataService.name %></td>
+                  <td><%= dataService.description %></td>
+                  <td><a href="/admin/editservice/<%= dataService.id %>">Edit</a></td>
+                  <td><a href="/admin/delservice/<%= dataService.id %>" onclick="return confirm('delete this service ?');">Delete</a></td>
+                </tr>
+              <% }) %>
+        </table>
+        </div>
+        <table>
+            <tr>
+                <td>
+                    <form action="/admin/addservice">
+                        <input type="submit" value="Add Service" id="bold" />
+                    </form>
+                </td>
+                <td>
+                    <form action="/home">
+                        <input type="submit" value="Back" />
+                    </form>
+                </td>
+            </tr>
+        </table>
+        
+        
+       
+    </main>
+</body>    
+</html>

@@ -1,0 +1,34 @@
+<html>
+<body>
+    <main>
+        <div class="container">
+            <h2>Welcome...  <%= workers.name %></h2>
+            <table>
+                <tr>
+                    <td>
+                        <a href="/worker/<%= workers.id %>/profile">Profile</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="/worker/<%= workers.id %>/assignservice">Assign Jasa</a>
+                    </td>
+                </tr>
+                <tr>
+                        <td>
+                            <a href="/worker/<%= workers.id %>/orderlist">Order List</a>
+                        </td>
+                    </tr>
+               <tr>
+                   <td>
+                        <a href="/worker/logout">Logout</a>
+                   </td>
+               </tr>
+                
+            </table>
+            
+           
+        </div> 
+    </main>
+</body>    
+</html>

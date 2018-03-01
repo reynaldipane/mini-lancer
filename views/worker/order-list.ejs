@@ -1,0 +1,33 @@
+<html>
+    <head>
+
+    </head>
+    <body>
+        <h1>Order List</h1>
+        <br>
+        <br>
+        <table border="1px">
+            <th>Jenis Jasa</th>
+            <th>Pengorder</th>
+            <th>Action</th>
+            <% orders.forEach(order => { %>
+                <tr>
+                    <td><%= order.Service.name %></td>
+                    <td><%= order.Recruiter.name%></td>
+                    <% if(order.status == "pending") { %>
+                            <td>
+                                <a href="/worker/<%=order.id%>/acceptorder">Terima</a> ||
+                                <a href="/worker/<%=order.id%>/rejectorder">Tolak</a>
+                            </td>
+                    <% } else if(order.status == "accept") { %>
+                            <td>On progress</td>
+                    <% } else if (order.status == "reject") { %>
+                            <td>Anda menolak order ini</td>
+                    <% } else if (order.status == "done") { %>
+                            <td>Order selesai dikerjakan</td>
+                    <% } %>
+                </tr>
+            <% })%>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,30 @@
+<html>
+    <head>
+
+    </head>
+    <body>
+        <h1>Transaction List</h1>
+        <br>
+        <br>
+        <table border="1px">
+            <th>Jenis Jasa</th>
+            <th>Freelancer</th>
+            <th>Status</th>
+            <% transactions.forEach(transaction => { %>
+                <tr>
+                    <td><%= transaction.Service.name %></td>
+                    <td><%= transaction.Worker.name%></td>
+                    <% if(transaction.status == "pending") { %>
+                            <td>Menunggu Respon Freelance</td>
+                    <% } else if(transaction.status == "accept") { %>
+                            <td><a href="/recruiter/markdone/<%=transaction.id%>/worker/<%= transaction.Worker.id%>">Tandai Selesai</a></td>
+                    <% } else if (transaction.status == "reject") { %>
+                            <td>Order anda ditolak</td>
+                    <% } else if (transaction.status == "done") { %>
+                            <td>Order selesai dikerjakan</td>
+                    <% } %>
+                </tr>
+            <% })%>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,37 @@
+<html>
+    <head>
+
+    </head>
+    <body>
+        <h3>Cari jenis jasa : </h3>
+        <form action="" method="POST">
+            <select name="jenis_jasa">
+                <% services.forEach(service => { %>
+                    <option value="<%= service.name %>"><%= service.name %></option>
+                <% }) %>
+            </select>
+            <input type="submit" value="Submit">
+        </form>
+        <br>
+        <br>
+
+        <table border="1px">
+            <th>Jenis Jasa</th>
+            <th>Nama Freelancer</th>
+            <th>Action</th>
+            <% workerservices.forEach(workerservice => { %>
+                    <tr>
+                        <td><%= workerservice.Service.name %></td>
+                        <td>
+                            <a href="/recruiter/viewworker/<%=workerservice.Worker.id %>"><%=workerservice.Worker.name%></a>
+                        </td>
+                        <td>
+                            <a href="/recruiter/orderservice?ServiceId=<%=workerservice.Service.id%>&WorkerId=<%=workerservice.Worker.id %>&RecruiterId=<%= userid %>">
+                                Order Service
+                            </a>
+                        </td>
+                    </tr>
+            <% })%>
+        </table>
+    </body>
+</html>
