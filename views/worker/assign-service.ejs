@@ -15,9 +15,9 @@
 
         <table border="1px" style="text-align:center">
             <th>Jasa yang kamu tawarkan</th>
-            <% worker.Services.forEach(service => { %>
+            <% servicesOwned.forEach(service => { %>
                 <tr>
-                    <td><%= service.name %></td>
+                    <td><%= service.name    %></td>
                 </tr>
             <% })%>
         </table>

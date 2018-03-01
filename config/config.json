@@ -1,7 +1,7 @@
 {
   "development": {
-    "username": "admin",
-    "password": "@dmin1234",
+    "username": "purge",
+    "password": "creatEpwD",
     "database": "minilancer",
     "host": "127.0.0.1",
     "dialect": "postgres"

@@ -18,10 +18,16 @@
         <table border="1px">
             <th>Jenis Jasa</th>
             <th>Nama Freelancer</th>
+            <th>Action</th>
             <% workerservices.forEach(workerservice => { %>
                     <tr>
                         <td><%= workerservice.Service.name %></td>
                         <td><%= workerservice.Worker.name %></td>
+                        <td>
+                            <a href="/recruiter/orderservice?ServiceId=<%=workerservice.Service.id%>&WorkerId=<%=workerservice.Worker.id %>&RecruiterId=<%= userid %>">
+                                Order Service
+                            </a>
+                        </td>
                     </tr>
             <% })%>
         </table>

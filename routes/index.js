@@ -29,7 +29,8 @@ routes.post('/register',(req,res) => {
             password : req.body.password,
             name     : req.body.name,
             email    : req.body.email,
-            telp     : req.body.telp
+            telp     : req.body.telp,
+            status   : 1
         })
         .then(() => {
             res.render('../views/register-login/register-landing')
