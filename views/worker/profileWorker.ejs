@@ -1,0 +1,43 @@
+<html>
+<body>
+    <main>
+        <div class="container">
+            <h2>Update Profile</h2>
+            <form name="profile" method="POST" action="/worker/profile/<%= workers.id %>">
+                <table>
+                    <tr>
+                        <td>Full Name</td>
+                        <td>
+                            <input type="text" name="full_name" value="<%= workers.name %> ">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td>
+                            <input type="text" name="email" value="<%= workers.email%> ">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Phone Number</td>
+                        <td>
+                            <input type="text" name="telp" value="<%= workers.telp%> ">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><input type="submit" value="UPDATE" ></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <form action="/worker">
+                                <input type="submit" value="BACK">
+                            </form>
+                        </td>
+                            
+                    </tr>
+                </table>
+            </form>
+            
+        </div> 
+    </main>
+</body>    
+</html>
