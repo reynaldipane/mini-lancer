@@ -7,6 +7,9 @@ module.exports = (sequelize, DataTypes) => {
   Service.associate = function(models) {
     Service.belongsToMany(models.Worker, {through : models.WorkerService})
     Service.hasMany(models.WorkerService)
+    Service.hasMany(models.Transaction)
+    Service.belongsToMany(models.Recruiter, {through: models.Transaction})
+    Service.belongsToMany(models.Worker, {through: models.Transaction})
   };
   return Service;
 };
