@@ -26,7 +26,9 @@ module.exports = (sequelize, DataTypes) => {
     alamat: DataTypes.STRING
   }, {});
   Recruiter.associate = function(models) {
-    // associations can be defined here
+    Recruiter.belongsToMany(models.Service, {through:models.Transaction})
+    Recruiter.belongsToMany(models.Worker, {through:models.Transaction})
+    Recruiter.hasMany(models.Transaction)
   };
   return Recruiter;
 };
