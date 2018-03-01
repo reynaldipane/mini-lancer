@@ -1,0 +1,29 @@
+<html>
+    <head>
+
+    </head>
+    <body>
+        <h3>Cari jenis jasa : </h3>
+        <form action="" method="POST">
+            <select name="jenis_jasa">
+                <% services.forEach(service => { %>
+                    <option value="<%= service.name %>"><%= service.name %></option>
+                <% }) %>
+            </select>
+            <input type="submit" value="Submit">
+        </form>
+        <br>
+        <br>
+
+        <table border="1px">
+            <th>Jenis Jasa</th>
+            <th>Nama Freelancer</th>
+            <% workerservices.forEach(workerservice => { %>
+                    <tr>
+                        <td><%= workerservice.Service.name %></td>
+                        <td><%= workerservice.Worker.name %></td>
+                    </tr>
+            <% })%>
+        </table>
+    </body>
+</html>

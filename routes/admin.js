@@ -2,12 +2,22 @@ const routes = require('express').Router()
 const models = require('../models')
 const authAdmin     = require('../middlewares/authAdmin')
 
-routes.get('/', authAdmin, (req,res) => {
-    res.send('Ini halaman admin')
+routes.get('/login',(req,res) => {
+    res.render('../views/admin/admin-login')
 })
 
+routes.post('/login',(req,res) => {
+    if(req.body.username == "admin" && req.body.password == "admin") {
+        req.session.userid   = 1
+        req.session.username = "admin"
+        req.session.role     = "admin"
+        res.redirect('/admin')
+    } else {
+        res.redirect('/admin/login')
+    }
+})
 
-routes.get('/listservice',(req,res) => {
+routes.get('/',authAdmin,(req,res) => {
     models.Service.findAll({
         order: [['id','ASC']]
       })
@@ -20,11 +30,11 @@ routes.get('/listservice',(req,res) => {
 })
 
 
-routes.get('/addservice',(req,res) => {
+routes.get('/addservice', authAdmin,(req,res) => {
     res.render('admin/formAddService',{})
 })
 
-routes.post('/addservice',(req,res) => {
+routes.post('/addservice',authAdmin,(req,res) => {
     models.Service.create({
         name: req.body.service_name,
         description: req.body.description
@@ -36,14 +46,14 @@ routes.post('/addservice',(req,res) => {
 })
 
 
-routes.get('/editservice/:id',(req,res) => {
+routes.get('/editservice/:id', authAdmin,(req,res) => {
     models.Service.findById(req.params.id)
     .then(services => {
         res.render('admin/editService', {services: services})
     })
 })
 
-routes.post('/editservice/:id',(req,res) => {
+routes.post('/editservice/:id', authAdmin, (req,res) => {
     let objService = {
         name: req.body.service_name,
         description: req.body.description
@@ -61,7 +71,7 @@ routes.post('/editservice/:id',(req,res) => {
 })
 
 
-routes.get('/delservice/:id',(req,res) => {
+routes.get('/delservice/:id', authAdmin, (req,res) => {
     models.Service.destroy({
         where: {
             id: req.params.id
