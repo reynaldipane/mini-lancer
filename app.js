@@ -23,5 +23,5 @@ app.use(session({
 app.use('/',routes);
 
 app.listen(PORT,() => {
-    console.log("application running on port 3000");
+    console.log("application running on port " + PORT);
 })

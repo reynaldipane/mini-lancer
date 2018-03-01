@@ -2,6 +2,15 @@ const routes        = require('express').Router()
 const authWorker    = require('../middlewares/authWorker')
 const models        = require('../models')
 const Op            = require('sequelize').Op
+const Cloudinary    = require('cloudinary')
+const multipart     = require('connect-multiparty')
+const multipartMiddleware = multipart();
+
+Cloudinary.config({
+    cloud_name : 'telkom',
+    api_key : '885514639584539',
+    api_secret : '0XcxGIb3zAATNlXMG7SC733zWqc'
+})
 
 routes.get('/',authWorker,(req,res) => {
     models.Worker.findById(req.session.userid)
@@ -65,21 +74,24 @@ routes.get('/:id/profile', authWorker,  (req,res) => {
     })
 })
 
-routes.post('/:id/profile', authWorker, (req,res) => {
-    let objWorker = {
-        name: req.body.full_name,
-        email: req.body.email,
-        telp: req.body.telp
-    }
-
-    models.Worker.update(objWorker, {
-        where: {
-            id: req.params.id
+routes.post('/:id/profile', authWorker, multipartMiddleware, (req,res) => {
+    Cloudinary.uploader.upload(req.files.picture.path, function(result) {
+        let objWorker = {
+            name: req.body.full_name,
+            // email: req.body.email,
+            telp: req.body.telp,
+            picture: result.url
         }
-    }).then(workers => {
-        res.redirect('/worker')
-    }).catch(err => {
-        res.send(err)
+    
+        models.Worker.update(objWorker, {
+            where: {
+                id: req.params.id
+            }
+        }).then(workers => {
+            res.redirect('/worker')
+        }).catch(err => {
+            res.send(err)
+        })
     })
 })
 
@@ -141,4 +153,11 @@ routes.get('/:idtransaction/rejectorder',authWorker,(req,res) => {
         res.send(err)
     })
 })
+
+routes.get('/logout',(req,res) => {
+    req.session.destroy(err=>{
+        res.redirect('/')
+    })
+})
+
 module.exports = routes;

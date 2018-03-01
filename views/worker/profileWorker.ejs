@@ -3,18 +3,17 @@
     <main>
         <div class="container">
             <h2>Update Profile</h2>
-            <form name="profile" method="POST" action="">
+            <form name="profile" method="POST" action="" enctype="multipart/form-data">
                 <table>
+                    <tr>
+                        <td>
+                            <img width="200px" src="<%= workers.picture %>">
+                        </td>
+                    </tr>
                     <tr>
                         <td>Full Name</td>
                         <td>
                             <input type="text" name="full_name" value="<%= workers.name %>">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Email</td>
-                        <td>
-                            <input type="text" name="email" value="<%= workers.email%>">
                         </td>
                     </tr>
                     <tr>
@@ -24,11 +23,18 @@
                         </td>
                     </tr>
                     <tr>
+                        <td>Avatar</td>
+                        <td>
+                            <input type="file" name="picture" value="<%= workers.picture %>">
+                        </td>
+                    </tr>
+                    <tr>
                         <td colspan="2"><input type="submit" value="UPDATE" ></td>
                     </tr>
                     <tr>
-                        <td><a href="/worker">Back</a></td>
-                            
+                        <td>
+                            <a href="/worker">Back</a>
+                        </td>
                     </tr>
                 </table>
             </form>
