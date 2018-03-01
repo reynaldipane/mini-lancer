@@ -1,0 +1,30 @@
+<html>
+<body>
+    <main>
+        <div class="container">
+            <h2>Edit Data Service</h2>
+            <form name="form" method="POST" action="/admin/editservice/<%= services.id %>">
+                <table>
+                    <tr>
+                        <td>Service Name</td>
+                        <td><input type="text" name="service_name" value="<%= services.name %>"></td>
+                    </tr>
+                    <tr>
+                        <td>Description</td>
+                        <td>
+                            <textarea rows="4" cols="40" name="description"><%= services.description %></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><input type="submit" value="SAVE" ></td>
+                    </tr>
+                    
+                </table>
+                </form>
+        </div>
+    </main>
+    <tr>    
+        <td><a href="/admin/listservice">Back</a></td>
+    </tr>
+</body>
+</html>
