@@ -22,7 +22,9 @@
             <% workerservices.forEach(workerservice => { %>
                     <tr>
                         <td><%= workerservice.Service.name %></td>
-                        <td><%= workerservice.Worker.name %></td>
+                        <td>
+                            <a href="/recruiter/viewworker/<%=workerservice.Worker.id %>"><%=workerservice.Worker.name%></a>
+                        </td>
                         <td>
                             <a href="/recruiter/orderservice?ServiceId=<%=workerservice.Service.id%>&WorkerId=<%=workerservice.Worker.id %>&RecruiterId=<%= userid %>">
                                 Order Service
