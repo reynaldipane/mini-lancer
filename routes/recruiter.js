@@ -8,9 +8,9 @@ routes.get('/', authRecruiter, (req,res) => {
 })
 
 
-routes.get('/:id/searchjasa',(req,res) => {
+routes.get('/:id/searchjasa', authRecruiter,(req,res) => {
     models.WorkerService.findAll({
-        include : [{model : models.Service}, {model : models.Worker}]
+        include : [{model : models.Service}, {model : models.Worker, where : { status : 1 }}]
     })
     .then(workerservices => {
         models.Service.findAll()
@@ -23,7 +23,7 @@ routes.get('/:id/searchjasa',(req,res) => {
     })
 })
 
-routes.post('/:id/searchjasa', (req,res) => {
+routes.post('/:id/searchjasa', authRecruiter, (req,res) => {
     if(req.body.jenis_jasa == "Asisten Rumah Tangga") {
         models.WorkerService.findAll({
             include : [
@@ -32,7 +32,7 @@ routes.post('/:id/searchjasa', (req,res) => {
                     name : {[Op.iLike] : req.body.jenis_jasa}
                  }
                 },
-                {model : models.Worker}]
+                {model : models.Worker, where : { status : 1 }}]
         })
         .then(workerservices => {
             models.Service.findAll()
@@ -48,7 +48,7 @@ routes.post('/:id/searchjasa', (req,res) => {
                     name : {[Op.iLike] : req.body.jenis_jasa}
                  }
                 },
-                {model : models.Worker}]
+                {model : models.Worker, where : { status : 1 }}]
         })
         .then(workerservices => {
             models.Service.findAll()
@@ -64,7 +64,7 @@ routes.post('/:id/searchjasa', (req,res) => {
                     name : {[Op.iLike] : req.body.jenis_jasa}
                  }
                 },
-                {model : models.Worker}]
+                {model : models.Worker, where : { status : 1 }}]
         })
         .then(workerservices => {
             models.Service.findAll()
@@ -80,7 +80,7 @@ routes.post('/:id/searchjasa', (req,res) => {
                     name : {[Op.iLike] : req.body.jenis_jasa}
                  }
                 },
-                {model : models.Worker}]
+                {model : models.Worker, where : { status : 1 }}]
         })
         .then(workerservices => {
             models.Service.findAll()
@@ -91,23 +91,57 @@ routes.post('/:id/searchjasa', (req,res) => {
     }
 })
 
-routes.post('/add',(req,res) => {
-    res.send('Recruiter telah ditambahkan')
+routes.get('/orderservice', authRecruiter, (req,res)=>{
+    models.Transaction.create({
+        WorkerId : req.query.WorkerId,
+        ServiceId : req.query.ServiceId,
+        RecruiterId : req.query.RecruiterId,
+        status : "pending"
+    })
+    .then(() => {
+        res.redirect(`/recruiter/${req.session.userid}/transactionlist`)
+    })
+    .catch(err=>{
+        res.send(err)
+    })
 })
 
-
-routes.get('/edit/:id',(req,res) => {
-    res.send('Halaman merubah data Recruiter')
+routes.get('/:id/transactionlist',authRecruiter,(req,res) => {
+    models.Transaction.findAll({
+        where : { RecruiterId : req.session.userid},
+        include: [{model : models.Service}, {model : models.Recruiter}, {model : models.Worker}],
+        attributes : ['id','status']
+    })
+    .then(transactions => {
+        res.render('../views/recruiter/transaction-list',{transactions : transactions})
+    })
+    .catch(err => {
+        res.send(err)
+    })
 })
 
-routes.post('/edit/:id',(req,res) => {
-    res.send('Data Recruiter telah dirubah')
+routes.get('/markdone/:idtransaction/worker/:idworker', (req,res) => {
+    models.Transaction.update({
+        status : "done"
+    },{
+        where : {id : req.params.idtransaction}
+    })
+    .then(() => {
+        models.Worker.update({
+            status : 1
+        },{
+            where : {id : req.params.idworker}
+        })
+        .then(() => {
+            res.redirect(`/recruiter/${req.session.userid}/transactionlist`)            
+        })
+        .catch(err=> {
+            res.send(err)
+        })
+    })
+    .catch(err => {
+        res.send(err)
+    })
 })
-
-
-routes.get('/delete/:id', (req,res) => {
-    res.send('Hapus data Recruiter')
-})
-
 
 module.exports = routes;
