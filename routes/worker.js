@@ -1,6 +1,7 @@
-const routes = require('express').Router()
+const routes        = require('express').Router()
+const authWorker    = require('../middlewares/authWorker')
 
-routes.get('/',(req,res) => {
+routes.get('/',authWorker,(req,res) => {
     res.send('Ini halaman worker')
 })
 
