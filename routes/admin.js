@@ -39,7 +39,7 @@ routes.post('/addservice',authAdmin,(req,res) => {
         name: req.body.service_name,
         description: req.body.description
     }).then(services => {
-        res.redirect('/admin/listservice')
+        res.redirect('/admin')
     }).catch(err => {
         res.send(err)
     })
@@ -64,7 +64,7 @@ routes.post('/editservice/:id', authAdmin, (req,res) => {
             id: req.params.id
         }
     }).then(services => {
-        res.redirect('/admin/listservice')
+        res.redirect('/admin')
     }).catch(err => {
         res.send(err)
     })
@@ -72,14 +72,14 @@ routes.post('/editservice/:id', authAdmin, (req,res) => {
 
 
 routes.get('/delservice/:id', authAdmin, (req,res) => {
-    models.Service.destroy({
-        where: {
-            id: req.params.id
-        }
-    }).then(services => {
-        res.redirect('/admin/listservice')
-    }).catch(err => {
-        res.send(err)
+    models.Service.findById(req.params.id)
+    .then(service => {
+        service.destroy()
+        .then(() => {
+            res.redirect('/admin')
+        }).catch(err => {
+            res.send(err)
+        })
     })
 })
 
