@@ -26,7 +26,8 @@ module.exports = (sequelize, DataTypes) => {
     status: DataTypes.INTEGER
   }, {});
   Worker.associate = function(models) {
-    // associations can be defined here
+    Worker.belongsToMany(models.Service, {through : models.WorkerService})
+    Worker.hasMany(models.WorkerService)
   };
   return Worker;
 };

@@ -5,7 +5,8 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.STRING
   }, {});
   Service.associate = function(models) {
-    // associations can be defined here
+    Service.belongsToMany(models.Worker, {through : models.WorkerService})
+    Service.hasMany(models.WorkerService)
   };
   return Service;
 };
