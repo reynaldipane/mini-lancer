@@ -53,33 +53,14 @@ routes.post('/:id/assignservice', authWorker, (req,res) => {
     })
 })
 
-routes.post('/add',(req,res) => {
-    res.send('Worker telah ditambahkan')
-})
-
-
-routes.get('/edit/:id',(req,res) => {
-    res.send('Halaman merubah data Worker')
-})
-
-routes.post('/edit/:id',(req,res) => {
-    res.send('Data Worker telah dirubah')
-})
-
-
-routes.get('/delete/:id', (req,res) => {
-    res.send('Hapus data Worker')
-})
-
-
-routes.get('/profile/:id', (req,res) => {
+routes.get('/:id/profile', (req,res) => {
     models.Worker.findById(req.session.userid)
     .then(workers => {
         res.render('worker/profileWorker', {workers:workers})
     })
 })
 
-routes.post('/profile/:id', (req,res) => {
+routes.post('/:id/profile', (req,res) => {
     let objWorker = {
         name: req.body.full_name,
         email: req.body.email,
