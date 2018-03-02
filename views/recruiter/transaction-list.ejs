@@ -13,7 +13,7 @@
             <% transactions.forEach(transaction => { %>
                 <tr>
                     <td><%= transaction.Service.name %></td>
-                    <td><%= transaction.Worker.name%></td>
+                    <td><%= helpers.addName(transaction.Worker.gender, transaction.Worker.name)%></td>
                     <% if(transaction.status == "pending") { %>
                             <td>Menunggu Respon Freelance</td>
                     <% } else if(transaction.status == "accept") { %>
