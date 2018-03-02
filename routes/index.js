@@ -30,7 +30,8 @@ routes.post('/register',(req,res) => {
             name     : req.body.name,
             email    : req.body.email,
             telp     : req.body.telp,
-            status   : 1
+            status   : 1,
+            gender   : req.body.gender
         })
         .then(() => {
             res.render('../views/register-login/register-landing')
@@ -44,7 +45,7 @@ routes.post('/register',(req,res) => {
             password : req.body.password,
             name     : req.body.name,
             email    : req.body.email,
-            telp     : req.body.telp
+            telp     : req.body.telp           
         })
         .then(() => {
             res.render('../views/register-login/register-landing')

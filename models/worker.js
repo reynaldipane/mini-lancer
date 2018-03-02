@@ -24,7 +24,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     telp: DataTypes.STRING,
     picture: DataTypes.TEXT,
-    status: DataTypes.INTEGER
+    status: DataTypes.INTEGER,
+    gender: DataTypes.STRING
   }, {});
   Worker.associate = function(models) {
     Worker.belongsToMany(models.Service, {through : models.WorkerService})

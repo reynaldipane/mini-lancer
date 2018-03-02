@@ -8,8 +8,9 @@ const session       = require('express-session')
 app.use(bodyParser.urlencoded({extended:false}))
 app.set('view engine', 'ejs')
 app.use(express.static('public'))
+app.set('port', (process.env.PORT || 3000))
 
-app.locals.helper   = require('./helpers')
+
 
 app.set('trust proxy', 1) // trust first proxy
 app.use(session({
@@ -21,7 +22,8 @@ app.use(session({
 
 
 app.use('/',routes);
+app.locals.helpers   = require('./helpers')
 
-app.listen(PORT,() => {
-    console.log("application running on port " + PORT);
-})
+app.listen(app.get('port'), function() {
+  console.log('Node app is running on port', app.get('port'));
+});
