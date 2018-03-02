@@ -24,71 +24,21 @@ routes.get('/:id/searchjasa', authRecruiter,(req,res) => {
 })
 
 routes.post('/:id/searchjasa', authRecruiter, (req,res) => {
-    if(req.body.jenis_jasa == "Asisten Rumah Tangga") {
-        models.WorkerService.findAll({
-            include : [
-                {model : models.Service,
-                 where : {
-                    name : {[Op.iLike] : req.body.jenis_jasa}
-                 }
-                },
-                {model : models.Worker, where : { status : 1 }}]
+    models.WorkerService.findAll({
+        include : [
+            {model : models.Service,
+             where : {
+                name : {[Op.iLike] : req.body.jenis_jasa}
+             }
+            },
+            {model : models.Worker, where : { status : 1 }}]
+    })
+    .then(workerservices => {
+        models.Service.findAll()
+        .then(services => {
+            res.render('../views/recruiter/search-jasa',{workerservices : workerservices, services:services, userid:req.session.userid})
         })
-        .then(workerservices => {
-            models.Service.findAll()
-            .then(services => {
-                res.render('../views/recruiter/search-jasa',{workerservices : workerservices, services:services, userid:req.session.userid})
-            })
-        })
-    } else if (req.body.jenis_jasa == "Cleaning Service") {
-        models.WorkerService.findAll({
-            include : [
-                {model : models.Service,
-                 where : {
-                    name : {[Op.iLike] : req.body.jenis_jasa}
-                 }
-                },
-                {model : models.Worker, where : { status : 1 }}]
-        })
-        .then(workerservices => {
-            models.Service.findAll()
-            .then(services => {
-                res.render('../views/recruiter/search-jasa',{workerservices : workerservices, services:services, userid:req.session.userid})
-            })
-        })
-    } else if (req.body.jenis_jasa == "Security") {
-        models.WorkerService.findAll({
-            include : [
-                {model : models.Service,
-                 where : {
-                    name : {[Op.iLike] : req.body.jenis_jasa}
-                 }
-                },
-                {model : models.Worker, where : { status : 1 }}]
-        })
-        .then(workerservices => {
-            models.Service.findAll()
-            .then(services => {
-                res.render('../views/recruiter/search-jasa',{workerservices : workerservices, services:services, userid:req.session.userid})
-            })
-        })
-    } else if (req.body.jenis_jasa == "Baby Sitter") {
-        models.WorkerService.findAll({
-            include : [
-                {model : models.Service,
-                 where : {
-                    name : {[Op.iLike] : req.body.jenis_jasa}
-                 }
-                },
-                {model : models.Worker, where : { status : 1 }}]
-        })
-        .then(workerservices => {
-            models.Service.findAll()
-            .then(services => {
-                res.render('../views/recruiter/search-jasa',{workerservices : workerservices, services:services, userid:req.session.userid})
-            })
-        })
-    }
+    })
 })
 
 routes.get('/orderservice', authRecruiter, (req,res)=>{
